@@ -72,6 +72,9 @@ export default class Employee extends BaseModel {
   @column()
   public nationality?: string
 
+  @column()
+  public avatar?: string
+
   @column.dateTime({ autoCreate: true })
   public createdAt: DateTime
 

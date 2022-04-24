@@ -25,21 +25,26 @@ export default class CreateEmployeeValidator {
    *    ```
    */
   public schema = schema.create({
-    firstName: schema.string(),
-    lastName: schema.string(),
-    gender: schema.string(),
-    birthDate: schema.date(),
+    firstName: schema.string({}, [rules.maxLength(15)]),
+    lastName: schema.string({}, [rules.maxLength(15)]),
+    gender: schema.string({}, [rules.maxLength(15)]),
+    birthDate: schema.date({}, [rules.beforeOrEqual('today')]),
     maritalStatus: schema.enum(Object.values(MaritalStatus)),
     department: schema.enum(Object.values(Department)),
-    position: schema.string(),
-    dateHired: schema.date(),
+    position: schema.string({}, [rules.maxLength(15)]),
+    dateHired: schema.date({}, [rules.beforeOrEqual('today')]),
     employmentStatus: schema.enum(Object.values(EmploymentStatus)),
-    contactNumber: schema.string(),
+    contactNumber: schema.string({}, [
+      rules.maxLength(15),
+      rules.mobile({
+        locale: ['en-PH'],
+      }),
+    ]),
     email: schema.string.optional([rules.email()]),
-    address: schema.string.optional(),
-    city: schema.string.optional(),
-    province: schema.string.optional(),
-    nationality: schema.string.optional(),
+    address: schema.string.optional({}, [rules.minLength(50)]),
+    city: schema.string.optional({}, [rules.maxLength(15)]),
+    province: schema.string.optional({}, [rules.maxLength(15)]),
+    nationality: schema.string.optional({}, [rules.maxLength(15)]),
   })
 
   /**
